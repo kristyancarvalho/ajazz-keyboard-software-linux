@@ -24,5 +24,3 @@ require (
 )
 
 replace github.com/sstallion/go-hid => ./third_party/go-hid
-replace gioui.org => ./third_party/gio
-replace gioui.org/x => ./third_party/gio-x
