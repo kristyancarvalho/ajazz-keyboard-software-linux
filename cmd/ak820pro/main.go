@@ -12,10 +12,14 @@ import (
 )
 
 func main() {
-	if err := run(); err != nil {
-		_, _ = fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
+	go func() {
+		if err := run(); err != nil {
+			_, _ = fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		os.Exit(0)
+	}()
+	app.Main()
 }
 
 func run() error {
@@ -25,12 +29,13 @@ func run() error {
 	}
 	defer closeLogger()
 
-	window := app.NewWindow(
+	var window app.Window
+	window.Option(
 		app.Title("Ajazz AK820 Pro"),
 		app.Size(unit.Dp(900), unit.Dp(600)),
 	)
 
-	application, err := gui.New(window, logger)
+	application, err := gui.New(&window, logger)
 	if err != nil {
 		return err
 	}

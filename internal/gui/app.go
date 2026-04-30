@@ -107,6 +107,7 @@ func (a *App) Run() error {
 		case app.DestroyEvent:
 			return e.Err
 		case app.FrameEvent:
+			a.ops.Reset()
 			gtx := app.NewContext(&a.ops, e)
 			a.layout(gtx)
 			e.Frame(gtx.Ops)
